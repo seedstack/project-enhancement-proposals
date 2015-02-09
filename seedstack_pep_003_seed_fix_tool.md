@@ -1,13 +1,13 @@
-# SEED Fix public enhancement proposal
+# SEED Fix project enhancement proposal
 
-PEP: 001
-Title: SEED fix
-Author: Pierre Thirouin <pierre.thirouin@ext.mpsa.com>
-Priority: High
+* PEP: 003
+* Title: SEED fix
+* Author: Pierre Thirouin <pierre.thirouin@ext.mpsa.com>
+* Priority: High
 
 ## Abstract
 
-Create a "seed" tool in Go that will be used by SeedStack users for
+Create a tool in Go that will be used by SeedStack users for
 common project tasks. This tool will be a command line executable
 providing the following sub command:
 
@@ -18,13 +18,16 @@ providing the following sub command:
 SeedStack is currently a PSA inner project. As we are planning to open
 source it, we have to do a huge refactoring in order to make it
 independent from our IT organization. This refactoring will require a
-lot of changes in our internal applications, but the direct benefit
-will be invisible. So to encourage applications to migrate on the OSS
-version of SeedStack, we are planning to build an upgrader tool. This
-tool should help fixing deprecated API without inciting them. It
-should as usual scalable and modular, in order to not be a one shot
-but a future-proof tool for API refactoring. Notice even so we don't
-plan for now to provide behavior refactoring but only API renaming.
+lot of changes in our internal applications, but direct benefits
+will be invisible. So to encourage applications to migrate to the OSS
+version of SeedStack, we are planning to build an upgrader tool. On
+another hand, this tool should help fixing deprecated API without
+inciting them.
+
+Building this tool, we will keep in mind scalablity and modularity, in order to
+not be a one shot project but a future-proof tool for API refactoring.
+However, we don't plan for now to provide behavior refactoring, but
+only API renaming.
 
 ## Specification
 
@@ -37,7 +40,7 @@ directory.
 
 ### Transformations description format
 
-The transformation will be describe in a YAML file with the following
+Transformations will be described in a YAML file with the following
 structure:
 
 ```yaml
@@ -55,8 +58,7 @@ structure:
   ...
 ```
 
-The file contains a list of transformation to apply. These
-transformations are ordered and represented by:
+These transformations are ordered and represented by:
 
  - a set of preconditions filtering the group of files to update.
  - a set of procedures linking to function to apply on the files
