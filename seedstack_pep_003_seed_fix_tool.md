@@ -1,9 +1,7 @@
-# SEED Fix project enhancement proposal
-
-* PEP: 003
-* Title: SEED fix
-* Author: Pierre Thirouin <pierre.thirouin@ext.mpsa.com>
-* Priority: High
+PEP: 003  
+Title: SEED fix  
+Author: Pierre Thirouin <pierre.thirouin@ext.mpsa.com>  
+Priority: High  
 
 ## Abstract
 

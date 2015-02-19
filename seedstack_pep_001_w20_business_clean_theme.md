@@ -1,5 +1,6 @@
 PEP: 001  
 Title: W20 business clean theme  
+Author: Adrien LAUER <adrien.lauer@mpsa.com>  
 Status: draft  
 
 # Abstract
