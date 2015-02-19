@@ -1,7 +1,7 @@
 PEP: 003  
 Title: SEED fix  
 Author: Pierre Thirouin <pierre.thirouin@ext.mpsa.com>  
-Priority: High  
+Status: draft  
 
 ## Abstract
 
