@@ -77,18 +77,27 @@ Assemble.aggregate(customer).toUniversalDto();
 Assemble.dto(universalDto).to(Customer.class);
 ```    
 
-## Automatic finders
+## Finder improvements
+
+Advanced finders often requires multiple features like pagination, filtering or sorting. One should be able to compose such features for each specific finder. For instance, a finder could implement pagination and sorting but not filtering. An API based on a decorator pattern could provide this flexibility instead of inheritance (inability to compose) or interface composition (inability to implement default behavior).
+
+A default finder implementation should be provided (like default factories, repositories, ...) which will have a simple but effective implementation of at least the three following features: pagination, filtering, sorting.
+
+A DSL will enable to use the finders (whether a default or an explicit implementation) at a higher level of abstraction. Finder features will be easily addressable:
 
 ```
+Find.chunk(15, 35).of(CustomerDTO.class).withFinder("qualifier1")
+    .sortedBy("firstName").asc()
+    .sortedBy("lastName")
+    .filteredBy(theCriteria);
 
+Find.page(5, 10).of(CustomerDTO.class)
+    .sortedBy("firstName").asc()
+    .sortedBy("lastName")
+    .filteredBy(theCriteria);
 
+Find.all().of(CustomerDTO.class);
 ```
-
-
-Two separate improvements should be done to finders:
-
-* Simplify the existing paginated finder to 
-
 
 ## Resource templates
 
