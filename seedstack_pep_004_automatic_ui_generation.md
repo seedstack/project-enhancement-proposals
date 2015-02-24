@@ -7,11 +7,15 @@ Status: draft
 
 # Abstract
 
-...
+Implements features needed to automatically expose representations. We already have automatic repository and factory. We now need:
+- Automatic assembler
+- Automatic finder
+- Hypermedia links between representation
+- Standard UI patterns
 
 # Motivation
 
-...
+We want the business framework to be a complete productivity framework based on DDD principles. The creation of DDD building blocks has already been addressed, so in this PEP we focus on speed up development with the business framework.
 
 # Specification
 
