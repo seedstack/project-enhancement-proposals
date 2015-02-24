@@ -23,7 +23,9 @@ We want the business framework to be a complete productivity framework based on 
 
 ## Automatic Assembler
 
-The first step leading to UI pattern DSL will be to provide automatic assemblers. So users won't have to write them, even if it will be still configurable.
+This part is located in business framework core.
+
+The first step leading to automatic UI will be to provide automatic assemblers. So users won't have to write them, even if it will be still configurable.
 
 In order to do this, we will create a specific assembler extending `AbstractBaseAssembler`. It will use the DSL provided by [ModelMapper](http://modelmapper.org/).
 
@@ -63,9 +65,11 @@ On top of that an API and/or a DSL would be provided for the developer to specif
 ```java
 Assemble.dto(customerDto).to(customer);
 
-Assemble.dto(customerDto).to(Customer.class).from().repository("remote").or().repository("local").or().factory();
+Assemble.dto(customerDto).to(Customer.class).fromRepositories("qualifier1", "qualifier2").thenFromFactories("qualifier3", "qualifier4");
 
-Assemble.dto(customerDto).to(Customer.class).from().repository().withAssembler(new AbstractMapping() {
+Assemble.dto(customerDto).to(Customer.class).fromRepository().thenFromFactory();
+
+Assemble.dto(customerDto).to(Customer.class).fromRepository().withAssembler(new AbstractMapping() {
         public void configureMerge(MyDTO source) {
             skip(source.name);
         }
@@ -77,34 +81,57 @@ Assemble.aggregate(customer).to(CustomerDTO.class).withMapping(new AbstractMappi
         }
 });
 
-Assemble.aggregate(customer).toUniversalDto();
+Assemble.aggregate(customer).toDynamicDto();
 
-Assemble.dto(universalDto).to(Customer.class);
+Assemble.dto(dynamicDto).to(Customer.class);
 ```    
 
-## Automatic finders
+## Finder improvements
+
+This part is located in business framework core.
+
+Advanced finders often requires multiple features like pagination, filtering or sorting. One should be able to compose such features for each specific finder. For instance, a finder could implement pagination and sorting but not filtering. An API based on a decorator pattern could provide this flexibility instead of inheritance (inability to compose) or interface composition (inability to implement default behavior).
+
+A default finder implementation should be provided (like default factories, repositories, ...) which will have a simple but effective implementation of at least the three following features: pagination, filtering, sorting.
+
+A DSL will enable to use the finders (whether a default or an explicit implementation) at a higher level of abstraction. Finder features will be easily addressable:
 
 ```
+Find.chunk(15, 35).of(CustomerDTO.class).withFinder("qualifier1")
+    .sortedBy("firstName").asc()
+    .sortedBy("lastName")
+    .filteredBy(theCriteria);
 
+Find.page(5, 10).of(CustomerDTO.class)
+    .sortedBy("firstName").asc()
+    .sortedBy("lastName")
+    .filteredBy(theCriteria);
 
+Find.all().of(CustomerDTO.class);
 ```
-
-
-Two separate improvements should be done to finders:
-
-* Simplify the existing paginated finder to 
-
 
 ## Resource templates
 
-...
+This part is located in business framework rest.
 
-## UI pattern DSL
+The idea is to allow the creation of resource templates which will be like normal resources but not automatically registered. Instead they can be exposed multiple times with different representations and various configurations.
 
-...
+```
+Expose.representation(CustomerRepresentation.class).with(CRUDResourceTemplate.class).on("/customers");
+
+Expose.dynamicRepresentationOf(Customer.class).with(CRUDResourceTemplate.class).on("/customers");
+
+Expose.representation(CustomerRepresentation.class).with(CRUDResourceTemplate.class).on("/customers")
+    .usingFactory("qualifier1")
+    .usingRepository("qualifier2")
+    .usingFinder("qualifier3")
+    .usingAssembler("qualifier4");
+```
 
 ## Hypermedia
 
-...
+This part is located in business framework rest.
 
- 
+## UI patterns
+
+This part is located in the kaviar function.
