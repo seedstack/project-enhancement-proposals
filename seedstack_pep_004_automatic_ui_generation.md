@@ -113,6 +113,16 @@ Find.page(5, 10).of(CustomerDTO.class)
 Find.all().of(CustomerDTO.class);
 ```
 
+For custom finders with specific UI logics, the DSL will provide a way to address and call your finder : 
+
+```
+Find.chunk(15, 35).of(CustomerDTO.class).withFinder(new FinderHandler<CustomerFinder>(){
+    List<CustomerDto> handle(CustomerFinder custormerFinder, Map<String,Object> criteria, Range range){
+        return customerFinder.findByArticle(criteria, range);
+    }
+});
+```
+
 ## Resource templates
 
 This part is located in business framework rest.
