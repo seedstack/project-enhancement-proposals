@@ -138,3 +138,19 @@ This part is located in business framework rest.
 ## UI patterns
 
 This part is located in the kaviar function.
+
+UI patterns should allow developers to choose between common visual representations for building the automated web application.
+
+We can identify the basic ones:
+
+- Simple form : A unique form for unitary resource.
+- Simple list : A list (or table) with search and pagination option. Can use modal window with the Simple form pattern for creating/editing. 
+- Master detail: Two column view pattern with a list of entry and a detailled zone for the selected element.
+
+These patterns could come as angular directives templates. These directives can then be used directly during the init phase to build the application or used manually by the developer if he needs to include the pattern inside a custom view.
+
+## UI navigation
+
+This part is located in the kaviar function.
+
+The webapp needs to be aware of the available resources exposed for CRUD manipulation in order to provide corresponding navigation. This configuration can come as a resource exposed on a known url (ex: rest/config) or be build on the server. It should provide the name of the resource and the ui pattern type to use for this resource. Furthermore it could allow flags for enabling/disabling routes on the client or allow the developer to use a custom view instead of the default template if needed. This resource can also be used for registering the REST path into a service on the client.
